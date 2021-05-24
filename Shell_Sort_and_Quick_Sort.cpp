@@ -28,7 +28,7 @@ int main(void) {
 	vector<collegeType> cSet; 				// set of output records
 	if(!readRecords( cSet, fileName, rTime )) return 0; 	// call: read records from a file  // amy : add "if" & add "!"
 	displayAll(cSet); 						// call: output all on screen
-	shellSort( cSet, fileName, rTime ); 	// call: shell sort
+//	shellSort( cSet, fileName, rTime ); 	// call: shell sort
 	quickSort( cSet, fileName, rTime ); 	// call: quick sort
 	system("pause");
 	return 0;
@@ -115,7 +115,7 @@ void writeRecords( vector<collegeType> &aSet, string fname, string fileName ) { 
  	for (vector<collegeType>::iterator it = aSet.begin(); it < aSet.end(); ++it) {
 	 	outFile << "(" << setw(2) << ++j << ")" << "\t" << it->cname << "\t" 
 				<<	it->dname;
- 		outFile << "\t" << it->level << "\t1234567" << it->total << endl;
+ 		outFile << "\t" << it->level << "\t" << it->total << endl;  // amy : delete "1234567"
  	} // end for
  	
  	outFile.close(); 	// close output file
@@ -193,7 +193,7 @@ void shellSort( vector<collegeType> &aSet, string fileName, float rTime ) { // d
 	timer2 = clock() - timer2; // get the elapse time
  	cout << "[1] 寫檔時間：" << timer2 << " clocks (";
  	cout << ((float)timer2) / CLOCKS_PER_SEC << " seconds)." << endl;
- 	WriteTimeRecords( fileName, "shellSort", rTime, ((float)timer) / CLOCKS_PER_SEC, ((float)timer2) / 0 );
+ 	WriteTimeRecords( fileName, "shellSort", rTime, ((float)timer) / CLOCKS_PER_SEC, ((float)timer2) / CLOCKS_PER_SEC  );  // amy : change 0 to CLOCL_PER_SEC 
 } // end shellSort
 
 void quickSort( vector<collegeType> &aSet, string fileName, float rTime ) { // definition: quick sort
@@ -304,7 +304,7 @@ void quickSort( vector<collegeType> &aSet, string fileName, float rTime ) { // d
 					QuickSortRecursive( tempS, head, walk - 1, choice2 );	// 第二階段排序 	
 					if ( show2 == '-' ) {									// 排序方式為 遞減
 						vector<collegeType> temp(tempS);
-						for ( int i = head; i < walk ; )
+						for ( int i = head; i < walk ; i++) // amy : add "i++"
 							tempS[i] = temp[walk + head - i - 1];
 					}	// if
 					
@@ -358,7 +358,7 @@ void QuickSortRecursive( vector<collegeType> & tempS, int start, int end, int ch
 		}	// else if
 		else if ( choice == 3 ) {	// 排年級  
 			while ( tempS[left].level < mid.level && left < right ) 
-				;left++;
+				left++;  // amy : delete ";" before left++;
 			while ( tempS[right].level >= mid.level && left < right ) 
 				right--;
 			std::swap( tempS[left], tempS[right] );			
@@ -371,9 +371,9 @@ void QuickSortRecursive( vector<collegeType> & tempS, int start, int end, int ch
 			std::swap( tempS[left], tempS[right] ); 		
 		}	// else if		
 		
-		std::swap( tempS[left], tempS[left] );
+		std::swap( left, right ); // amy : tempS[left] -> left   tempS[right] -> right
 	}	// while
-	
+
 	if ( choice == 1 ) {	// 排大學名稱  
 		if ( tempS[left].cname >= tempS[end].cname )
 			std::swap( tempS[left], tempS[end] );

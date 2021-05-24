@@ -1,0 +1,3 @@
+讀檔時間：0seconds
+排序時間：0.003seconds
+寫檔時間：0.001seconds
