@@ -47,8 +47,8 @@ bool readRecords(vector<collegeType> &cSet, string & fileName, float & rTime ) {
 	string coName, depName, stLevel;
  	char rBuf[255]; 								// input buffer for one line
  	inFile.open(fileName.c_str(), fstream::in); 	// open file to read
- 	if (!inFile.is_open()){ 							// unable to open file  // amy : add "!"
- 		cout << endl << "### " << fileName << " does not exist! ###" << endl; return false;}  // amy : "return false"
+ 	if (!inFile.is_open()) 							// unable to open file  // amy : add "!"
+ 		cout << endl << "### " << fileName << " does not exist! ###" << endl;
  	else {
  		while (inFile.getline(rBuf, 255, '\n')) { 	// get each input record line by line
  			string temp; 							// transform the c-string of input record
@@ -86,8 +86,8 @@ bool readRecords(vector<collegeType> &cSet, string & fileName, float & rTime ) {
  	rTime = ( (float)timer ) / CLOCKS_PER_SEC ;
 	inFile.close(); // close file
 	fileName = temp;
- 	if ( !cSet.size() )
- 		cout << endl << "### Get nothing from the file " << fileName << " ! ### " << endl;
+ 	if ( !cSet.size() ){
+ 		cout << endl << "### Get nothing from the file " << fileName << " ! ### " << endl; return false;} return true;  // amy : add "return false" & "return true"
 } // end readRecords
 
 
